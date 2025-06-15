@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { ActiveThemeProvider } from "@/components/active-theme";
 
 import { cookies } from "next/headers";
+import { ReactQueryProvider } from "@/components/providers/react-query-provider";
 
 export const metadata: Metadata = {
   title: "R3g Software",
@@ -31,8 +32,9 @@ export default async function RootLayout({
         >
           {" "}
           <ActiveThemeProvider initialTheme={activeThemeValue}>
-            {" "}
-            {children}
+             <ReactQueryProvider>
+              {children}
+            </ReactQueryProvider>
           </ActiveThemeProvider>
         </ThemeProvider>
       </body>

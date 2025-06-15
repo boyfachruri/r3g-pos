@@ -38,6 +38,23 @@ import {
 import Link from "next/link";
 import { AvatarImage } from "@radix-ui/react-avatar";
 import { Avatar } from "./ui/avatar";
+import { useSession } from "@/hooks/useSession";
+import { useQuery } from "@tanstack/react-query";
+import { getUserById } from "@/utils/user.config";
+import { useEffect, useState } from "react";
+
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  password: string;
+  avatar?: string;
+  roleId: string;
+  createdAt: string;  // ISO date string
+  updatedAt: string;
+  createdBy: string | null;
+  updatedBy: string | null;
+}
 
 const data = {
   user: {
@@ -162,7 +179,7 @@ const dataMenu = [
     title: "Dashboard",
     url: "/main/dashboard",
     icon: IconDashboard,
-    child: []
+    child: [],
   },
   {
     id: "2",
@@ -207,6 +224,27 @@ const dataMenu = [
 ];
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const session = useSession();
+  const [userData, setUserData] = useState<User>()
+
+  const {
+    data: user,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["user", session.user?.sub],
+    queryFn: () => getUserById(session.user?.sub!),
+    enabled: !!session.user?.sub, // agar tidak jalan sebelum id tersedia
+  });
+  
+
+  useEffect(() => {
+    if (user) {
+      setUserData(user)
+    }
+  }, [user])
+  
+
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
@@ -234,7 +272,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         {/* <NavSecondary items={data.navSecondary} className="mt-auto" /> */}
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={userData!} />
       </SidebarFooter>
     </Sidebar>
   );

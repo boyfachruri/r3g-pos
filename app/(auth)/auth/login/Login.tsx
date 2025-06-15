@@ -1,24 +1,35 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui/button';
-import { CardDescription } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { Button } from "@/components/ui/button";
+import { CardDescription } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { login } from "@/utils/auth.config";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const router = useRouter();
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle login logic here
-    console.log({ email, password });
-    router.push("/main/dashboard");
+    setError(null);
+    setLoading(true);
+
+    try {
+      const result = await login({ email, password });
+      router.push("/main/dashboard");
+    } catch (err: any) {
+      setError(err.response?.data?.message || "Login gagal");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -47,12 +58,18 @@ export default function LoginPage() {
         />
       </div>
 
-      <Button type="submit" className="w-full bg-primary cursor-pointer">
-        Login
+      {error && <p className="text-red-500 text-sm">{error}</p>}
+
+      <Button
+        type="submit"
+        className="w-full bg-primary cursor-pointer"
+        disabled={loading}
+      >
+        {loading ? "Logging in..." : "Login"}
       </Button>
 
       <CardDescription className="text-center mt-4 text-sm">
-        Belum punya akun?{' '}
+        Belum punya akun?{" "}
         <Link href="/auth/register" className="underline text-primary">
           Daftar sekarang
         </Link>
