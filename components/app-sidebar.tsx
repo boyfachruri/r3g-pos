@@ -17,6 +17,9 @@ import {
   IconSearch,
   IconSettings,
   IconUsers,
+  IconSubtask,
+  IconMenu4,
+  IconFileTextShield,
 } from "@tabler/icons-react";
 
 import { NavDocuments } from "@/components/nav-documents";
@@ -153,6 +156,56 @@ const data = {
   ],
 };
 
+const dataMenu = [
+  {
+    id: "1",
+    title: "Dashboard",
+    url: "/main/dashboard",
+    icon: IconDashboard,
+    child: []
+  },
+  {
+    id: "2",
+    title: "Access Management",
+    url: "#",
+    icon: undefined,
+    child: [
+      {
+        id: "3",
+        title: "Role",
+        url: "/main/role",
+        icon: IconSubtask,
+      },
+      {
+        id: "4",
+        title: "Menu",
+        url: "/main/menu",
+        icon: IconListDetails,
+      },
+      {
+        id: "5",
+        title: "Role Access",
+        url: "/main/role-access",
+        icon: IconFileTextShield,
+      },
+    ],
+  },
+  {
+    id: "6",
+    title: "Users Management",
+    url: "#",
+    icon: undefined,
+    child: [
+      {
+        id: "7",
+        title: "Users",
+        url: "/main/users",
+        icon: IconUsers,
+      },
+    ],
+  },
+];
+
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
@@ -176,7 +229,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        <NavMain items={dataMenu} />
         {/* <NavDocuments items={data.documents} /> */}
         {/* <NavSecondary items={data.navSecondary} className="mt-auto" /> */}
       </SidebarContent>

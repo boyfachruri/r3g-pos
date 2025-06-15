@@ -56,13 +56,13 @@ export default function RegisterPage() {
         />
       </div>
 
-      <Button type="submit" className="w-full bg-amber-500">
+      <Button type="submit" className="w-full bg-primary cursor-pointer">
         Daftar
       </Button>
 
       <CardDescription className="text-center mt-4 text-sm">
         Sudah punya akun?{' '}
-        <Link href="/auth/login" className="underline text-amber-600">
+        <Link href="/auth/login" className="underline text-primary">
           Masuk sekarang
         </Link>
       </CardDescription>

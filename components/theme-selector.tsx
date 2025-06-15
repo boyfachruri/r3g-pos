@@ -41,6 +41,10 @@ const SCALED_THEMES = [
     name: "Blue",
     value: "blue-scaled",
   },
+   {
+    name: "Amber",
+    value: "amber-scaled",
+  },
 ];
 
 const MONO_THEMES = [
@@ -56,7 +60,7 @@ export function ThemeSelector() {
   return (
     <div className="flex items-center gap-2">
       <Label htmlFor="theme-selector" className="sr-only">
-        Theme
+        Color
       </Label>
       <Select value={activeTheme} onValueChange={setActiveTheme}>
         <SelectTrigger
@@ -65,14 +69,14 @@ export function ThemeSelector() {
           className="justify-start *:data-[slot=select-value]:w-12"
         >
           <span className="text-muted-foreground hidden sm:block">
-            Select a theme:
+            Color:
           </span>
-          <span className="text-muted-foreground block sm:hidden">Theme</span>
+          <span className="text-muted-foreground block sm:hidden">Color</span>
           <SelectValue placeholder="Select a theme" />
         </SelectTrigger>
         <SelectContent align="end">
           <SelectGroup>
-            <SelectLabel>Default</SelectLabel>
+            {/* <SelectLabel>Default</SelectLabel> */}
             {DEFAULT_THEMES.map((theme) => (
               <SelectItem key={theme.name} value={theme.value}>
                 {theme.name}
@@ -80,22 +84,22 @@ export function ThemeSelector() {
             ))}
           </SelectGroup>
           <SelectSeparator />
-          <SelectGroup>
+          {/* <SelectGroup>
             <SelectLabel>Scaled</SelectLabel>
             {SCALED_THEMES.map((theme) => (
               <SelectItem key={theme.name} value={theme.value}>
                 {theme.name}
               </SelectItem>
             ))}
-          </SelectGroup>
-          <SelectGroup>
+          </SelectGroup> */}
+          {/* <SelectGroup>
             <SelectLabel>Monospaced</SelectLabel>
             {MONO_THEMES.map((theme) => (
               <SelectItem key={theme.name} value={theme.value}>
                 {theme.name}
               </SelectItem>
             ))}
-          </SelectGroup>
+          </SelectGroup> */}
         </SelectContent>
       </Select>
     </div>
