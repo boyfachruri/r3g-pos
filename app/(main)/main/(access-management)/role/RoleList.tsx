@@ -112,7 +112,7 @@ const RoleList = () => {
           className="flex-1"
         />
         <Button onClick={handleAdd} className="whitespace-nowrap">
-          Add Role
+          Add
         </Button>
       </div>
 

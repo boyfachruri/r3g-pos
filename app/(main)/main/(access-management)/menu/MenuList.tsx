@@ -141,7 +141,7 @@ const MenuList = () => {
           className="flex-1"
         />
         <Button onClick={handleAdd} className="whitespace-nowrap">
-          Add Menu
+          Add
         </Button>
       </div>
 
